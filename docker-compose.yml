@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+    php-apache-environment:
+        container_name: php-apache
+        build:
+            context: ./docker
+            dockerfile: Dockerfile
+        depends_on:
+            - db
+        volumes:
+            - .:/var/www/html/
+        ports:
+            - 8000:80
+    db:
+        container_name: db
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: film
+            MYSQL_DATABASE: film
+            MYSQL_USER: film
+            MYSQL_PASSWORD: film
+        ports:
+            - "9906:3306"
+    adminer:
+        image: adminer
+        ports:
+          - 8080:8080
