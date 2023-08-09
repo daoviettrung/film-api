@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\FilmController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +12,4 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/import-cate',  [UserController::class, 'index']);
+Route::get('import-cate', [FilmController::class, 'importCate']);
