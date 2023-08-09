@@ -20,7 +20,11 @@ services:
             MYSQL_DATABASE: film
         ports:
             - "9906:3306"
+        volumes:
+            - db-data:/var/lib/mysql
     adminer:
         image: adminer
         ports:
           - 8080:8080
+volumes:
+  db-data:
