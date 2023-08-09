@@ -12,14 +12,12 @@ services:
         ports:
             - 8000:80
     db:
-        container_name: db
-        image: mysql
+        container_name: db-mysql
+        image: mysql:8.0
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: film
             MYSQL_DATABASE: film
-            MYSQL_USER: film
-            MYSQL_PASSWORD: film
         ports:
             - "9906:3306"
     adminer:
