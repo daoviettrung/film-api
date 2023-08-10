@@ -24,17 +24,4 @@ class FilmService
         }
         DB::table('country')->insert($dataInsert);
     }
-
-    public function importFilm(){
-        for($i = 1; $i <= 300; $i++){
-            $page = $i;
-            $response = Http::get("https://ophim1.com/danh-sach/phim-moi-cap-nhat?page={$page}");
-            $data = $response->object();
-            foreach($data->items as $value){
-                $responseDetail = Http::get("https://ophim1.com/phim/{$value->slug}");
-                dd($responseDetail->object());
-
-            }
-        }
-    }
 }
