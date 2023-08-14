@@ -15,6 +15,5 @@ class FilmController extends Controller
     public function importCate(Request $request)
     {
         $filmService = new FilmService();
-        $filmService->importFilm();
     }
 }
