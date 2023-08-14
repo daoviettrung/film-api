@@ -29,7 +29,7 @@ class VerifyJWTToken
                 return response()->json(['msg' => 'Xác thực không thành công']);
             }
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['msg' => 'Xác thực không thành công']);
+            return response()->json(["error" => $e->getMessage()], 401);
         }
     }
 }
