@@ -13,6 +13,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 WORKDIR /var/www/html/
 # Enable mod_rewrite for Laravel
 RUN a2enmod rewrite
+RUN a2enmod headers
 # Copy Apache virtual host configuration
 COPY apache-vhost.conf /etc/apache2/sites-available/000-default.conf
 # Expose port 80
