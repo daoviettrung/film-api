@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
-use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
@@ -19,17 +20,17 @@ class VerifyJWTToken
     public function handle($request, Closure $next)
     {
         try {
-            $user = JWTAuth::toUser($request->input('token'));
-        }catch (JWTException $e) {
-            if($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-                return response()->json(['token_expired'], $e->getStatusCode());
-            }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-                return response()->json(['token_invalid'], $e->getStatusCode());
-            }else{
-                return response()->json(['error'=>'Token is required']);
+            $user = auth()->user();
+            $tokenUser = trim(str_replace('Bearer','',$request->header('Authorization')));
+            if(!empty($user) && $user instanceof User && $user->remember_token == $tokenUser){
+                return $next($request);
             }
+            else{
+                return response()->json(['msg' => 'Xác thực không thành công']);
+            }
+        } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+            return response()->json(['msg' => 'Xác thực không thành công']);
         }
-        return $next($request);
     }
 }
 
