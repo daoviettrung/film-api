@@ -21,8 +21,7 @@ class VerifyJWTToken
     {
         try {
             $user = auth()->user();
-            $tokenUser = trim(str_replace('Bearer','',$request->header('Authorization')));
-            if(!empty($user) && $user instanceof User && $user->remember_token == $tokenUser){
+            if(!empty($user) && $user instanceof User){
                 return $next($request);
             }
             else{
