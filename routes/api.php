@@ -24,3 +24,4 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->middleware(VerifyJWTToken::class);
+Route::get('/detail-film', [HomeController::class, 'index'])->middleware(VerifyJWTToken::class);
